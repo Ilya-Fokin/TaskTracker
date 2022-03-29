@@ -27,4 +27,70 @@ public class UserProject {
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
+
+    public UserProject() {}
+
+    public UserProject(Project project, User user, boolean status, LocalDateTime startDate, LocalDateTime endDate) {
+        this.project = project;
+        this.user = user;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProject{" +
+                "id=" + id +
+                ", project=" + project +
+                ", user=" + user +
+                ", status=" + status +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

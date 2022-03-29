@@ -21,4 +21,41 @@ public class TaskUser {
 
     @Column(name = "assign_date")
     private LocalDateTime assignDate;
+
+    public TaskUser(User user, Task task, LocalDateTime assignDate) {
+        this.user = user;
+        this.task = task;
+        this.assignDate = assignDate;
+    }
+
+    public TaskUser() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public LocalDateTime getAssignDate() {
+        return assignDate;
+    }
+
+    public void setAssignDate(LocalDateTime assignDate) {
+        this.assignDate = assignDate;
+    }
 }

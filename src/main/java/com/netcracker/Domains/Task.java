@@ -33,4 +33,90 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     private List<TaskUser> taskUser;
+
+    public Task() {}
+
+    public Task(String name, String description, LocalDateTime dateTime, boolean status, Project project, List<TaskTeam> taskTeams, List<TaskUser> taskUser) {
+        this.name = name;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.status = status;
+        this.project = project;
+        this.taskTeams = taskTeams;
+        this.taskUser = taskUser;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public List<TaskTeam> getTaskTeams() {
+        return taskTeams;
+    }
+
+    public void setTaskTeams(List<TaskTeam> taskTeams) {
+        this.taskTeams = taskTeams;
+    }
+
+    public List<TaskUser> getTaskUser() {
+        return taskUser;
+    }
+
+    public void setTaskUser(List<TaskUser> taskUser) {
+        this.taskUser = taskUser;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", dateTime=" + dateTime +
+                ", status=" + status +
+                ", project=" + project +
+                ", taskTeams=" + taskTeams +
+                ", taskUser=" + taskUser +
+                '}';
+    }
 }

@@ -17,4 +17,31 @@ public class TaskTeam {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_team")
     private Team team;
+
+    public TaskTeam() {}
+
+    public TaskTeam(Task task, Team team) {
+        this.task = task;
+        this.team = team;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

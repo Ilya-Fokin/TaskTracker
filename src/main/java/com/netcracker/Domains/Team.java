@@ -27,4 +27,58 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<TaskTeam> taskTeams;
+
+    public Team() {}
+
+    public Team(String name, User teamLead, Project project, List<UserTeam> userTeams, List<TaskTeam> taskTeams) {
+        this.name = name;
+        this.teamLead = teamLead;
+        this.project = project;
+        this.userTeams = userTeams;
+        this.taskTeams = taskTeams;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getTeamLead() {
+        return teamLead;
+    }
+
+    public void setTeamLead(User teamLead) {
+        this.teamLead = teamLead;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public List<UserTeam> getUserTeams() {
+        return userTeams;
+    }
+
+    public void setUserTeams(List<UserTeam> userTeams) {
+        this.userTeams = userTeams;
+    }
+
+    public List<TaskTeam> getTaskTeams() {
+        return taskTeams;
+    }
+
+    public void setTaskTeams(List<TaskTeam> taskTeams) {
+        this.taskTeams = taskTeams;
+    }
 }
