@@ -1,5 +1,7 @@
 package com.netcracker.Domains;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,6 +10,7 @@ import java.util.UUID;
 @Table(name = "comment")
 public class Comment {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
@@ -18,11 +21,11 @@ public class Comment {
     private LocalDateTime dateTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "id_user_comment")
     private User sender;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "id_task_comment")
     private Task task;
 
     public Comment() {}

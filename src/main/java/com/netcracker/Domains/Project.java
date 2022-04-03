@@ -1,7 +1,12 @@
 package com.netcracker.Domains;
 
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +14,7 @@ import java.util.UUID;
 @Table(name = "project")
 public class Project {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
@@ -19,7 +25,7 @@ public class Project {
     private String description;
 
     @Column(name = "closing_date")
-    private LocalDateTime dateTime;
+    private LocalDateTime closingDate;
 
     @Column(name = "visibility")
     private boolean visibility;
@@ -28,18 +34,26 @@ public class Project {
     @JoinColumn(name = "id_project_admin")
     private User adminProject;
 
-    @OneToMany(mappedBy = "project")
-    private List<UserProject> userProjects;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<UserProject> userProjects = new ArrayList<>();
 
     public Project() {}
 
-    public Project(String name, String description, LocalDateTime dateTime, boolean visibility, User adminProject, List<UserProject> userProjects) {
+    public Project(User adminProject, String name, String description, LocalDateTime closingDate, boolean visibility, UserProject... userProject) {
         this.name = name;
         this.description = description;
-        this.dateTime = dateTime;
+        this.closingDate = closingDate;
         this.visibility = visibility;
         this.adminProject = adminProject;
-        this.userProjects = userProjects;
+        userProjects.addAll(Arrays.asList(userProject));
+    }
+
+    public Project(User user, String name, String description, LocalDateTime closingDate, boolean visibility) {
+        this.name = name;
+        this.description = description;
+        this.closingDate = closingDate;
+        this.visibility = visibility;
+        this.adminProject = user;
     }
 
     public UUID getId() {
@@ -62,12 +76,12 @@ public class Project {
         this.description = description;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getClosingTime() {
+        return closingDate;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setClosingTime(LocalDateTime closingDate) {
+        this.closingDate = closingDate;
     }
 
     public boolean isVisibility() {
@@ -93,6 +107,8 @@ public class Project {
     public void setUserProjects(List<UserProject> userProjects) {
         this.userProjects = userProjects;
     }
+
+    public void addUserProject(UserProject userProject) {this.userProjects.add(userProject);}
 
     @Override
     public String toString() {

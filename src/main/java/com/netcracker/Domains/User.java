@@ -1,5 +1,7 @@
 package com.netcracker.Domains;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +10,7 @@ import java.util.UUID;
 @Table(name = "user")
 public class User {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
@@ -20,13 +23,19 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserProject> userProjects;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserTeam> userTeams;
 
     public User() {}
+
+    public User(String name, String nickname, String password) {
+        this.name = name;
+        this.nickname = nickname;
+        this.password = password;
+    }
 
     public User(String name, String nickname, String password, List<UserProject> userProjects, List<UserTeam> userTeams) {
         this.name = name;
@@ -90,5 +99,15 @@ public class User {
                 ", userProjects=" + userProjects +
                 ", userTeams=" + userTeams +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

@@ -1,5 +1,10 @@
 package com.netcracker.Domains;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,6 +13,7 @@ import java.util.UUID;
 @Table(name = "user2project")
 public class UserProject {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
@@ -30,12 +36,11 @@ public class UserProject {
 
     public UserProject() {}
 
-    public UserProject(Project project, User user, boolean status, LocalDateTime startDate, LocalDateTime endDate) {
-        this.project = project;
+    public UserProject(User user, Project project) {
         this.user = user;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.project = project;
+        this.status = true;
+        this.startDate = LocalDateTime.now();
     }
 
     public UUID getId() {

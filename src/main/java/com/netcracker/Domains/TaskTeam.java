@@ -1,5 +1,7 @@
 package com.netcracker.Domains;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -7,15 +9,16 @@ import java.util.UUID;
 @Table(name = "task2team")
 public class TaskTeam {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "id_task_team")
     private Task task;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_team")
+    @JoinColumn(name = "id_team_task")
     private Team team;
 
     public TaskTeam() {}

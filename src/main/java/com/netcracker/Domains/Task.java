@@ -1,5 +1,7 @@
 package com.netcracker.Domains;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.UUID;
 @Table(name = "task")
 public class Task {
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
     private final UUID id = UUID.randomUUID();
 
@@ -25,7 +28,7 @@ public class Task {
     private boolean status;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_project")
+    @JoinColumn(name = "id_project_task")
     private Project project;
 
     @OneToMany(mappedBy = "task")
