@@ -1,7 +1,7 @@
-package com.netcracker.Domains;
+package com.netcracker.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Type;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +16,8 @@ public class Project {
     @Id
     @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "name")
     private String name;

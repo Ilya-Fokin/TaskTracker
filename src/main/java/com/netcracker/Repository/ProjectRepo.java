@@ -1,11 +1,8 @@
 package com.netcracker.Repository;
 
-import com.netcracker.Domains.Project;
-import com.netcracker.Domains.User;
-import com.netcracker.Domains.UserProject;
+import com.netcracker.Entity.Project;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

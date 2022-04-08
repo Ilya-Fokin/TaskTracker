@@ -1,4 +1,4 @@
-package com.netcracker.Domains;
+package com.netcracker.Entity;
 
 import org.hibernate.annotations.Type;
 
@@ -12,7 +12,8 @@ public class Team {
     @Id
     @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -25,10 +26,10 @@ public class Team {
     @JoinColumn(name = "id_project_team")
     private Project project;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<UserTeam> userTeams;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<TaskTeam> taskTeams;
 
     public Team() {}
@@ -39,6 +40,19 @@ public class Team {
         this.project = project;
         this.userTeams = userTeams;
         this.taskTeams = taskTeams;
+    }
+
+    public Team(String name, User teamLead, Project project, List<UserTeam> userTeams) {
+        this.name = name;
+        this.teamLead = teamLead;
+        this.project = project;
+        this.userTeams = userTeams;
+    }
+
+    public Team(String name, User teamLead, Project project) {
+        this.name = name;
+        this.teamLead = teamLead;
+        this.project = project;
     }
 
     public UUID getId() {
@@ -83,5 +97,17 @@ public class Team {
 
     public void setTaskTeams(List<TaskTeam> taskTeams) {
         this.taskTeams = taskTeams;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", teamLead=" + teamLead +
+                ", project=" + project +
+                ", userTeams=" + userTeams +
+                ", taskTeams=" + taskTeams +
+                '}';
     }
 }

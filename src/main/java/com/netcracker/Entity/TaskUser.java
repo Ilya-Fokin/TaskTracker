@@ -1,4 +1,4 @@
-package com.netcracker.Domains;
+package com.netcracker.Entity;
 
 import org.hibernate.annotations.Type;
 
@@ -12,7 +12,8 @@ public class TaskUser {
     @Id
     @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user_task")

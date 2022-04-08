@@ -1,15 +1,16 @@
 package com.netcracker.Service.ProjectService;
 
-import com.netcracker.Domains.Project;
-import com.netcracker.Domains.User;
-import com.netcracker.Domains.UserProject;
+import com.netcracker.Entity.Project;
+import com.netcracker.Entity.User;
+import com.netcracker.Entity.UserProject;
 import com.netcracker.Exceptions.UserExceptions.UserIsExistInProjectException;
 import com.netcracker.Repository.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -69,4 +70,5 @@ public class ProjectServiceImpl implements ProjectService{
             return null;
         } else return project;
     }
+
 }

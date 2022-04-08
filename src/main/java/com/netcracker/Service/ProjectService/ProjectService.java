@@ -1,9 +1,10 @@
 package com.netcracker.Service.ProjectService;
 
-import com.netcracker.Domains.Project;
-import com.netcracker.Domains.User;
+import com.netcracker.Entity.Project;
+import com.netcracker.Entity.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface ProjectService {
     void createProject(String name, String description, LocalDateTime closingDate, boolean visibility, User user);

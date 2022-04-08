@@ -1,9 +1,7 @@
-package com.netcracker.Domains;
+package com.netcracker.Entity;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +13,8 @@ public class UserProject {
     @Id
     @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_project")

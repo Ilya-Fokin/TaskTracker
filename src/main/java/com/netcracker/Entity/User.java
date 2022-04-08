@@ -1,5 +1,6 @@
-package com.netcracker.Domains;
+package com.netcracker.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,7 +13,8 @@ public class User {
     @Id
     @Type(type = "uuid-char")
     @Column(name = "id", columnDefinition = "VARCHAR(36)")
-    private final UUID id = UUID.randomUUID();
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "first_last_name")
     private String name;
@@ -23,10 +25,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserProject> userProjects;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserTeam> userTeams;
 
     public User() {}
