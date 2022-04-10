@@ -3,6 +3,7 @@ package com.netcracker.Entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +28,10 @@ public class Team {
     private Project project;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<UserTeam> userTeams;
+    private List<UserTeam> userTeams = new ArrayList<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<TaskTeam> taskTeams;
+    private List<TaskTeam> taskTeams = new ArrayList<>();
 
     public Team() {}
 

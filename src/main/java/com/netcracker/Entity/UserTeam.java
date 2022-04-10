@@ -34,12 +34,12 @@ public class UserTeam {
 
     public UserTeam() {}
 
-    public UserTeam(User user, Team team, boolean status, LocalDateTime startDate, LocalDateTime endDate) {
+    public UserTeam(User user, Team team) {
         this.user = user;
         this.team = team;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.status = true;
+        this.startDate = LocalDateTime.now();
+        this.endDate = null;
     }
 
     public UUID getId() {

@@ -1,12 +1,15 @@
 package com.netcracker.Service.UserService;
 
+import com.netcracker.Entity.Project;
 import com.netcracker.Entity.User;
-import com.netcracker.Exceptions.UserExceptions.UserIsAlreadyRegistredException;
+import com.netcracker.Exceptions.UserExceptions.UserAlreadyExistException;
 import com.netcracker.Exceptions.UserExceptions.UserNotFoundException;
 import com.netcracker.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -18,7 +21,7 @@ public class UserServiceImpl implements UserService{
         if (userRepo.findByNickname(nickname) == null) {
             User user = new User(name, nickname, new BCryptPasswordEncoder().encode(password));
             userRepo.save(user);
-        } else throw new UserIsAlreadyRegistredException(String.format("Пользователь '%s' уже зарегистрирован", name));
+        } else throw new UserAlreadyExistException(String.format("Пользователь '%s' уже зарегистрирован", name));
     }
 
     @Override
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService{
             throw new UserNotFoundException(String.format("Пользователь '%s' не найден", name));
         } else return user;
     }
+
 
 
 }
