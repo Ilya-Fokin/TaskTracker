@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TeamServiceImpl implements TeamService{
@@ -24,9 +21,9 @@ public class TeamServiceImpl implements TeamService{
     TeamRepo teamRepo;
 
     @Override
-    public void create(String name, User teamLead, Project project) {
-        if (project.getAdminProject().equals(teamLead)) {
-            teamRepo.findAllByProject(project).forEach(x -> {
+    public void create(String name, UUID adminId, User teamLead, Project project) {
+        if (project.getAdminProject().getId().equals(adminId)) {
+            teamRepo.findAllTeamByProject(project).forEach(x -> {
                 if ((x.getName()).equals(name)) {
                     throw new TeamAlreadyExistException("Команада с таким именем уже существует");
                 }
@@ -38,18 +35,23 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public void addParticipant(Team team, User... users) {
-            for (User user : users) {
-                if (findParticipantByNickname(team, user.getNickname()) == null) {
-                    team.getUserTeams().add(new UserTeam(user, team));
+    public void addParticipant(UUID teamId, UUID teamLeadId, User... users) {
+        if (teamRepo.findById(teamId).isPresent()) {
+            Team team = teamRepo.findById(teamId).get();
+            if (team.getTeamLead().getId().equals(teamLeadId)) {
+                for (User user : users) {
+                    if (findParticipantByNickname(team, user.getNickname()) == null) {
+                        team.getUserTeams().add(new UserTeam(user, team));
+                    } else throw new UserAlreadyExistException("Пользователь уже состоит в команде");
                 }
-            }
-            teamRepo.save(team);
+                teamRepo.save(team);
+            } else throw new NoAccessException("Недостаточно прав");
+        } else throw new TeamNotFoundException("Команда не найдена");
     }
 
     @Override
     public List<Team> findAllByProject(Project project) {
-        return teamRepo.findAllByProject(project);
+        return teamRepo.findAllTeamByProject(project);
     }
 
     @Override
@@ -71,22 +73,31 @@ public class TeamServiceImpl implements TeamService{
     }
 
     @Override
-    public void deleteParticipant(Team team, User... users) {
-        for (UserTeam userTeam : team.getUserTeams()) {
-            for (User user : users) {
-                if (userTeam.getUser().equals(user)) {
-                    userTeam.setEndDate(LocalDateTime.now());
+    public void deleteParticipant(UUID teamId, UUID teamLeadId, User... users) {
+        if (teamRepo.findById(teamId).isPresent()) {
+            Team team = teamRepo.findById(teamId).get();
+            if (team.getTeamLead().getId().equals(teamLeadId)) {
+                for (UserTeam userTeam : team.getUserTeams()) {
+                    for (User user : users) {
+                        if (userTeam.getUser().equals(user)) {
+                            userTeam.setEndDate(LocalDateTime.now());
+                            userTeam.setStatus(false);
+                        }
+                    }
                 }
-            }
-        }
-        teamRepo.save(team);
+                teamRepo.save(team);
+            } else throw new NoAccessException("Недостаточно прав");
+        } else throw new TeamNotFoundException("Команда не найдена");
     }
 
     @Override
-    public Team delete(Team team) {
-        if (teamRepo.findByName(team.getName()) != null) {
-            teamRepo.delete(team);
-            return team;
+    public Team delete(Team team, UUID userId) {
+        Team teamInRepo = teamRepo.findByName(team.getName());
+        if (teamInRepo != null) {
+            if (teamInRepo.getTeamLead().getId().equals(userId) || teamInRepo.getProject().getAdminProject().getId().equals(userId)) {
+                teamRepo.delete(team);
+                return team;
+            } else throw new NoAccessException("Недостаточно прав");
         } else throw new TeamNotFoundException(String.format("Команда %s не найдена", team.getName()));
     }
 }

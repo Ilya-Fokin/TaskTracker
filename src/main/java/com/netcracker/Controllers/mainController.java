@@ -25,12 +25,9 @@ public class mainController {
 
     @GetMapping("/")
     public void mainPage() {
-        User user = userService.findByNickName("ilya3349");
-
+        User user = userService.findByNickname("ilya3349");
         System.out.println("----------------------------------------------------------");
         user.getUserProjects().forEach(x -> teamService.findAllByProject(x.getProject()).forEach(y -> System.out.println(y.getName()+ " | " + y.getProject().getName())));
-
-
         System.out.println("----------------------------------------------------------");
 
 

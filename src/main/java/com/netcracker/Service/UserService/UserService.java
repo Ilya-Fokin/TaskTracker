@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface UserService {
     void createUser(String name, String nickName, String password);
-    User findByNickName(String nickname);
+    User findByNickname(String nickname);
     User findByName(String name);
 }

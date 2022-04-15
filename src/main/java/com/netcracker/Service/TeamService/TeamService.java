@@ -5,13 +5,14 @@ import com.netcracker.Entity.Team;
 import com.netcracker.Entity.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface TeamService {
-    void create(String name, User user, Project project);
-    void addParticipant(Team team, User... user);
+    void create(String name, UUID adminId, User teamLead, Project project);
+    void addParticipant(UUID teamId, UUID id, User... user);
     List<Team> findAllByProject(Project project);
     List<User> findAllParticipant(Team team);
     User findParticipantByNickname(Team team, String nickname);
-    void deleteParticipant(Team team, User... user);
-    Team delete(Team team);
+    void deleteParticipant(UUID teamId, UUID id, User... user);
+    Team delete(Team team, UUID id);
 }
