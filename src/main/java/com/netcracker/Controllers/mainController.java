@@ -8,7 +8,10 @@ import com.netcracker.Service.TeamService.TeamService;
 import com.netcracker.Service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 
@@ -24,14 +27,12 @@ public class mainController {
     TeamService teamService;
 
     @GetMapping("/")
-    public void mainPage() {
-        User user = userService.findByNickname("ilya3349");
-        System.out.println("----------------------------------------------------------");
-        user.getUserProjects().forEach(x -> teamService.findAllByProject(x.getProject()).forEach(y -> System.out.println(y.getName()+ " | " + y.getProject().getName())));
-        System.out.println("----------------------------------------------------------");
+    public String mainPage(Model model) {
+        return "Main";
+    }
 
-
-
-
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        return "login_page";
     }
 }

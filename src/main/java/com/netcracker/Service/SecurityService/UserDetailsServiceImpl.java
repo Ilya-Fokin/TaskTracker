@@ -21,6 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByNickname(username);
+        System.out.println(username + " -------------------------------" );
         if (user == null) {
             throw new UsernameNotFoundException(String.format("Пользователь '%s' не найден", username));
         } else

@@ -26,10 +26,10 @@ public class TaskUser {
     @Column(name = "assign_date")
     private LocalDateTime assignDate;
 
-    public TaskUser(User user, Task task, LocalDateTime assignDate) {
+    public TaskUser(User user, Task task) {
         this.user = user;
         this.task = task;
-        this.assignDate = assignDate;
+        this.assignDate = LocalDateTime.now();
     }
 
     public TaskUser() {

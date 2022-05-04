@@ -23,7 +23,7 @@ public class Task {
     private String description;
 
     @Column(name = "closing_date")
-    private LocalDateTime dateTime;
+    private LocalDateTime closingDate;
 
     @Column(name = "status")
     private boolean status;
@@ -40,14 +40,31 @@ public class Task {
 
     public Task() {}
 
-    public Task(String name, String description, LocalDateTime dateTime, boolean status, Project project, List<TaskTeam> taskTeams, List<TaskUser> taskUser) {
+    public Task(String name, String description, LocalDateTime closingDate, Project project, List<TaskTeam> taskTeams, List<TaskUser> taskUser) {
         this.name = name;
         this.description = description;
-        this.dateTime = dateTime;
-        this.status = status;
+        this.closingDate = closingDate;
+        this.status = true;
         this.project = project;
         this.taskTeams = taskTeams;
         this.taskUser = taskUser;
+    }
+
+    public Task(String name, String description, LocalDateTime closingDate, Project project, List<TaskTeam> taskTeams) {
+        this.name = name;
+        this.description = description;
+        this.closingDate = closingDate;
+        this.status = true;
+        this.project = project;
+        this.taskTeams = taskTeams;
+    }
+
+    public Task(String name, String description, LocalDateTime closingDate, Project project) {
+        this.name = name;
+        this.description = description;
+        this.closingDate = closingDate;
+        this.status = true;
+        this.project = project;
     }
 
     public UUID getId() {
@@ -71,11 +88,11 @@ public class Task {
     }
 
     public LocalDateTime getDateTime() {
-        return dateTime;
+        return closingDate;
     }
 
     public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+        this.closingDate = dateTime;
     }
 
     public boolean isStatus() {
@@ -116,7 +133,7 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", dateTime=" + dateTime +
+                ", dateTime=" + closingDate +
                 ", status=" + status +
                 ", project=" + project +
                 ", taskTeams=" + taskTeams +
