@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TSK</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Lora:wght@400;700&family=Nunito:wght@200&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+      <header>
+        <a href="#" class="menu_bar"><img src="/Images/IMG_9141.PNG"></a>
+          <a href="#" class="logo_icon"><img src="/Images/IMG_9134.PNG"></a>
+          <a href="#" class="account_icon"><img src="/Images/IMG_9140.PNG"></a>
+      </header>
+
+      <div class="login_registration_block">
+        <div class="login_block">
+            <div class="entry_block">Вход:</div>
+            <form class = "login_form" th:action="@{/sign_in}" method="post">
+                <input class="login_input" name="username" placeholder="Логин" type="text">
+                <input class="password_input" name="password" placeholder="Пароль" type="password">
+                <button class="login_button">Войти</button>
+            </form>
+
+            <div th:if = "${param.error}">
+                <b>Неверный логин или пароль</b>
+            </div>
+
+
+        </div>
+
+        <div class="login_block">
+            <div class="entry_block">Ещё нет аккаунта?</div>
+            <button class="registaration_button">Зарегистрироваться</button>
+
+        </div>
+      </div>
+
+      
+
+     
+
+
+    
+</body>
+</html>

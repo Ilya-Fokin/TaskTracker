@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>TSK</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Lora:wght@400;700&family=Nunito:wght@200&family=Open+Sans&family=Roboto:wght@100;400&family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+      <header>
+        <button class="menu_bar"><img src="../static/Images/IMG_9141.PNG"></button>
+          <a href="#" class="logo_icon"><img src="../static/Images/IMG_9134.PNG"></a>
+          <a href="#" class="account_icon"><img src="../static/Images/IMG_9140.PNG"></a>
+      </header>
+
+      <div class="menu_zone">
+          <div class="field_menu_block_exit">
+              <button class="cl-btn-3">
+                <span class="top"></span>
+                <span class="bot"></span>
+              </button>
+          </div>
+          <div class="field_menu_block">
+            <a href="#" id="menu_my_projects">Мои проекты</a>
+        </div>
+        <div class="field_menu_block">
+            <a href="#" id="menu_all_projects">Все проекты</a>
+        </div>
+        <div class="field_menu_block">
+            <a href="#" id="menu_all_projects">Задачи</a>
+        </div>
+      </div>
+
+      <div class="hello_block" id="add_projects_hello_block">
+          ДОБАВИТЬ ЗАДАЧУ:
+      </div>
+
+      <div class="login_block" id="add_project_block">
+        <form class = "login_form" th:action="@{/add_project}" method="post">
+            <div class="field_add_project" id="input_name_project">
+                <div class="entry_block">Укажите название</div>
+                <input class="login_input" name="name_project" placeholder="Название" type="text">
+            </div>
+
+            <div class="field_add_project" id="input_description_project">
+                <div class="entry_block">Описание</div>
+                <input class="login_input" name="description_project" placeholder="Описание" type="text"></input>
+            </div>
+
+            <div class="field_add_project" id="input_description_project">
+                <div class="entry_block">Дата и время закрытия</div>
+                <input class="login_input" type = "datetime-local" name="datetime_project"></input>
+            </div>
+
+            <div class="field_add_project" id="input_description_project">
+                <div class="entry_block">Никнейм исполнителя</div>
+                <input class="login_input" placeholder="Никнейм" name="participant_project"></input>
+            </div>
+
+
+            <button class="login_button">Добавить</button>
+        </form>
+    </div>
+
+    <div class="participant_zone">
+        <div class="header_participant">Участники</div>
+        <div class="participant_list">
+            <div class="participant_field">Фокин И.А.</div>
+            <div class="participant_field">Фокин И.А.</div>
+            <div class="participant_field">Фокин И.А.</div>
+            <a href="#" class="login_button" id="add_participant_or_team">Добавить</a>
+        </div>
+    </div>
+
+      
+</body>
+<script src="../static/js/jquery-3.0.0.min.js"></script>
+<script src="../static/js/js.js"></script>
+</html>
